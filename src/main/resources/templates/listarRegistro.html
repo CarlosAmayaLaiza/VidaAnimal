@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Listado de Citas | Clínica Veterinaria Vida Animal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+  <style>
+    /* ======== Estilos generales, nav, footer y colores ======== */
+    body {
+      background-color: #f5f5dc;
+    }
+	/* Para asegurar que el contenido no tape el footer */
+	body {
+	  position: relative;
+	  min-height: 100vh;
+	  padding-bottom: 80px; /* espacio igual o mayor al alto del footer */
+	}
+
+
+    /* Submenú dentro del dropdown */
+    .dropdown-submenu {
+      position: relative;
+    }
+    .dropdown-submenu .dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-left: 0;
+      display: none;
+    }
+    .dropdown-submenu:hover .dropdown-menu {
+      display: block;
+    }
+    .dropdown-menu > li > a {
+      white-space: nowrap;
+    }
+
+	 /*ESTILO DEL FOOTER*/
+	 
+	 footer {
+	
+	   bottom: 0;
+	   left: 0;
+	   width: 100%;
+	   background-color: #1e1f20; /* fondo gris oscuro */
+	   color: #d3c9a3; /* texto en dorado suave */
+	   padding: 40px 0 20px 0;
+	   border-top: 1px solid #3a3a3a;
+	   box-shadow: 0 -2px 6px rgba(0,0,0,0.2);
+	   font-family: 'Poppins', sans-serif;
+	 }
+	.social-icon {
+	    display: inline-flex;
+	    align-items: center;
+	    justify-content: center;
+	    background-color: #c9b177; /* tono crema más oscuro */
+	    color: rgb(23, 19, 19);
+	    width: 40px;
+	    height: 40px;
+	    border-radius: 50%;
+	    font-size: 1.4rem;
+	    transition: background-color 0.3s ease, transform 0.3s ease;
+	    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+	  }
+	  .social-icon:hover {
+	    background-color: #a68f3d; /* un poco más oscuro para hover */
+	    transform: scale(1.15);
+	    text-decoration: none;
+	    color: white;
+	  }
+
+
+    /* Dropdown */
+    .dropdown-menu {
+      background-color: #f5f5dc;
+      border-radius: 8px;
+      border: 1px solid #d3c9a3;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 0.5rem 0;
+      min-width: 200px;
+    }
+    .dropdown-menu .dropdown-item {
+      color: #5a4a2f;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .dropdown-menu .dropdown-item:hover,
+    .dropdown-menu .dropdown-item:focus {
+      background-color: #d3c9a3;
+      color: #2c220d;
+    }
+    .dropdown-toggle::after {
+      border-top: 0.3em solid #5a4a2f;
+      border-right: 0.3em solid transparent;
+      border-left: 0.3em solid transparent;
+      margin-left: 0.255em;
+    }
+
+    /* ======== Estilo de la tabla de citas ======== */
+    .header-title {
+      color: #a68f3d;
+      font-weight: bold;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .table thead {
+      background-color: #c9b177;
+      color: #2c220d;
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: #f9f4e6;
+    }
+
+    .search-box {
+      max-width: 300px;
+      border: 1px solid #c9b177;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    @media (max-width: 576px) {
+      .search-box {
+        width: 100%;
+      }
+      table.table tbody tr td {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ======== NAVBAR ======== -->
+  <nav class="navbar navbar" style="background-color: #f5f5dc;">
+    <div class="container-fluid">
+      <div class="d-flex align-items-center">
+      	<a  th:href="@{/adopcion}">
+          <img th:src="@{/images/princi2..png}" alt="Logo" style="height: 50px;" class="me-3">
+        </a>
+        <a class="nav-link px-3" th:href="@{/principal}">Inicio</a>
+        <a class="nav-link px-3" th:href="@{/nosotros}">Nosotros</a>
+
+        <!-- Dropdown Productos -->
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle px-3" href="#" role="button" data-bs-toggle="dropdown">Productos</a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-submenu position-relative">
+              <a class="dropdown-item dropdown-toggle" href="#">Alimentos</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" th:href="@{/alimentoperro}">Perros</a></li>
+                <li><a class="dropdown-item" th:href="@{/alimentogato}">Gatos</a></li>
+              </ul>
+            </li>
+            <li class="dropdown-submenu position-relative">
+              <a class="dropdown-item dropdown-toggle" href="#">Juguetes</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" th:href="@{/jugueteperro}">Perros</a></li>
+                <li><a class="dropdown-item" th:href="@{/juguetegato}">Gatos</a></li>
+              </ul>
+            </li>
+            <li class="dropdown-submenu position-relative">
+              <a class="dropdown-item dropdown-toggle" href="#">Accesorios</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" th:href="@{/accesoriosperro}">Perros</a></li>
+                <li><a class="dropdown-item" th:href="@{/accesoriosgato}">Gatos</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <a class="nav-link px-3" th:href="@{/servicio}">Servicio</a>
+        <div th:if="${session.usuarioLogueado != null}">
+          <a class="nav-link px-3" th:href="@{/citas}">Mis Citas</a>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center">
+        <div th:if="${session.usuarioLogueado != null}">
+          <a class="nav-link px-3" th:href="@{/cargar}">Registro Cita</a>
+        </div>
+        <a class="nav-link px-3" th:href="@{/equipo}">Equipo</a>
+        <a class="nav-link px-3" th:href="@{/contacto}">Contacto</a>
+		 <a class="nav-link px-3"th:href="@{/carrocompras}">
+		<i class="fas fa-shopping-cart"></i> </a>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle px-3 d-flex align-items-center" href="#" id="userDropdown" data-bs-toggle="dropdown">
+            <span th:text="${session.usuarioLogueado != null ? session.usuarioLogueado.username : 'Invitado'}"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li th:if="${session.usuarioLogueado != null}">
+              <a class="dropdown-item" th:href="@{/api/pago/perfil}">Ver perfil</a>
+            </li>
+            <li th:if="${session.usuarioLogueado != null}">
+              <a class="dropdown-item" th:href="@{/api/pago/logout}">Cerrar sesión</a>
+            </li>
+            <li th:if="${session.usuarioLogueado == null}">
+              <a class="dropdown-item" th:href="@{/api/pago/login}">Iniciar sesión</a>
+            </li>
+          </ul>
+        </li>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ======== CONTENIDO PRINCIPAL: LISTA DE CITAS ======== -->
+  <div class="container mt-5">
+    <h2 class="text-center mb-4 header-title">
+      <i class="bi bi-calendar-heart-fill"></i> Listado de Citas Médicas
+    </h2>
+
+    <!-- Barra de búsqueda -->
+    <div class="d-flex justify-content-end mb-3">
+      <input type="text" id="searchInput" class="form-control search-box" placeholder="Buscar por fecha y servicio...">
+    </div>
+
+    <!-- Tabla de citas -->
+    <div class="table-responsive shadow-sm bg-white rounded">
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Servicio</th>
+            <th>Animal</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Veterinario</th>
+            <th>Total ($)</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:if="${#lists.isEmpty(citas)}">
+            <td colspan="8" class="text-center text-muted">No hay citas registradas</td>
+          </tr>
+		  <tr th:each="cita : ${citas}">
+		    <td th:text="${cita.id_cita}"></td>
+		    <td th:text="${cita.servicio.nombre_servicio}"></td>
+		    <td th:text="${cita.animal.nombre}"></td>
+		    <td th:text="${cita.fecha}"></td>
+		    <td th:text="${cita.hora}"></td>
+		    <td th:text="${cita.veterinario.nombre}"></td>
+		    <td th:text="${cita.total}"></td>
+		    <td>
+		      <span th:if="${cita.estadoCita != null and cita.estadoCita.nombre_estado == 'Validado'}" class="text-success">
+		        <i class="bi bi-check-circle-fill"></i> Validado
+		      </span>
+		      <span th:if="${cita.estadoCita == null or cita.estadoCita.nombre_estado != 'Validado'}" class="text-primary">
+		        <i class="bi bi-info-circle-fill"></i> Registrado
+		      </span>
+		    </td>
+		  </tr>
+        </tbody>
+      </table>
+	  
+    </div>
+  </div>
+
+ 
+  <!-- ======== FOOTER ======== -->
+  <footer class="bg-dark text-white pt-5 pb-4 mt-5">
+    <div class="container text-md-left">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h5 class="text-uppercase fw-bold mb-4">Clínica Vida Animal</h5>
+          <p style="font-family: 'Dancing Script', cursive; font-size: 1.25rem; color: #c9b177;">
+            Cuidamos a tus compañeros peludos con amor, experiencia y compromiso.
+          </p>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h6 class="text-uppercase fw-bold mb-4">Enlaces</h6>
+          <ul class="list-unstyled">
+            <li><a th:href="@{/principal}" class="text-white text-decoration-none">Inicio</a></li>
+            <li><a th:href="@{/nosotros}" class="text-white text-decoration-none">Nosotros</a></li>
+            <li><a th:href="@{/equipo}" class="text-white text-decoration-none">Equipo</a></li>
+            <li><a th:href="@{/contacto}" class="text-white text-decoration-none">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <h6 class="text-uppercase fw-bold mb-4" style="color: #c9b177;">Síguenos</h6>
+		  <div class="d-flex gap-3">
+		      <a href="#" class="social-icon" aria-label="Facebook">
+		        <i class="bi bi-facebook"></i>
+		      </a>
+		      <a href="#" class="social-icon" aria-label="Instagram">
+		        <i class="bi bi-instagram"></i>
+		      </a>
+		      <a href="#" class="social-icon" aria-label="WhatsApp">
+		        <i class="bi bi-whatsapp"></i>
+		      </a>
+		      <a href="#" class="social-icon" aria-label="Correo">
+		        <i class="bi bi-envelope"></i>
+		      </a>
+		    </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center p-3 border-top border-light mt-4">
+      © 2025 Clínica Veterinaria Vida Animal. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  
+  
+  
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const searchInput = document.getElementById("searchInput");
+      const tableRows = document.querySelectorAll("tbody tr");
+
+      searchInput.addEventListener("keyup", function () {
+        const filter = searchInput.value.toLowerCase().trim();
+
+        tableRows.forEach(row => {
+          const servicioCell = row.querySelector("td:nth-child(2)"); // Columna de servicio
+          const fechaCell = row.querySelector("td:nth-child(4)");    // Columna de fecha
+
+          const servicioTexto = servicioCell ? servicioCell.textContent.toLowerCase() : "";
+          const fechaTexto = fechaCell ? fechaCell.textContent.toLowerCase() : "";
+
+          // Mostrar si coincide con servicio o con fecha
+          if (servicioTexto.includes(filter) || fechaTexto.includes(filter)) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      });
+    });
+  </script>
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+</body>
+</html>
