@@ -34,8 +34,8 @@ import com.example.demo.classes.correo.EmailService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 
-@Controller
-@CrossOrigin(origins = "*")
+@RestController
+@CrossOrigin(origins = "https://frontend-vidaanimal.azurewebsites.net")
 @RequestMapping("/api/pago")
 public class UsuarioController {
 
