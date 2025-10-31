@@ -354,12 +354,19 @@ async function procesarPago(event) {
   `;
   btnPagarModal.disabled = true;
 
-  try {
-    const response = await fetch('http://localhost:8080/api/pago/enviar-correo', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(datos)
-    });
+ try {
+  const response = await fetch('https://vidaanimal-dtfge8e8h9d4hggu.brazilsouth-01.azurewebsites.net/api/pago/enviar-correo', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(datos)
+  });
+	
+	  const resultado = await response.json();
+	  console.log('Respuesta del servidor:', resultado);
+	} catch (error) {
+	  console.error('Error al enviar el correo:', error);
+	}
+
 
     if (!response.ok) throw new Error("Error al enviar correo");
 
